@@ -274,6 +274,11 @@ void TIM2_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-
+void setDutyCycle(uint8_t D)
+{
+if(D>=0&&D<=99){
+	TIM2->CCR1= ((TIM2->CCR1) * D) / 100;
+}
+}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
