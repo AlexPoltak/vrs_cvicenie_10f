@@ -29,6 +29,8 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -61,6 +63,7 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void proccesDmaData(uint8_t sign);
+char buffer[10];
 
 /* USER CODE END 0 */
 
@@ -162,33 +165,49 @@ void proccesDmaData(uint8_t sign)
 
 		// type your algorithm here:
 	static uint8_t count = 0;
-	 static uint8_t upper = 0;
-	  static uint8_t lower = 0;
-		if (sign=='#'){
+	static uint8_t i = 0;
+	static uint8_t compareA = 0;
+	static uint8_t compareM = 0;
+	static uint8_t comparePWM = 0;
+
+	char PWMsubString[3];
+
+
+
+		if (sign=='$'&&count == 0){
 			count=1;
-			upper=0;
-			lower=0;
-
 		}
-		if(count==0){
-			lower=0;
-			upper=0;
+		if(count>=1&&sign!='$'){
+			buffer[i]=sign;
+			i=i+1;
+			count=count+1;
 		}
+		if(count>1&&sign=='$'){
 
-		if(count>0){
-			if(sign!='#'&&sign!='$'){
-				count=count+1;
-				if (sign >= 'A' && sign <= 'Z'){
-					upper=upper+1;
-				}
-				if (sign >= 'a' && sign <= 'z'){
-					lower=lower+1;
+			compareA = strcmp(buffer, "auto");
+			if(compareA==0){
+
+			}
+			compareM = strcmp(buffer, "manual");
+			if(compareM==0){
+
+			}
+		    strncpy(PWMsubString,&buffer[0],3);
+			comparePWM = strcmp(PWMsubString, "PWM");
+
+			if(comparePWM==0&&count==5){
+				if ('0' <= buffer[3] && buffer[3] <= '9' && '0' <= buffer[4] && buffer[4]<= '9'){
+
 				}
 			}
+			count=0;
+			i=0;
 		}
 
 
-		if (sign=='$'&&count>0&&count<=35){
+
+
+		/*if (sign=='$'&&count>0&&count<=35){
 		size_t size = snprintf(NULL, 0,"number of lower: %d, number of upper: %d \n \n",lower,upper);
 		char* info = (char*)malloc(size);
 		snprintf(info, size,"number of lower: %d, number of upper: %d \n \n",lower,upper);
@@ -196,13 +215,8 @@ void proccesDmaData(uint8_t sign)
 		count=0;
 		lower=0;
 		upper=0;
-		}
+		}*/
 
-		if(count>35){
-			count=0;
-			upper=0;
-			lower=0;
-		}
 }
 /* USER CODE END 4 */
 
