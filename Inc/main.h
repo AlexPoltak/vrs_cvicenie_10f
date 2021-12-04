@@ -45,10 +45,10 @@ extern "C" {
 #include "stm32_assert.h"
 #endif /* USE_FULL_ASSERT */
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
+/* Private  ----------------------------------------------------------*/
+/* USER CODE BEGIN  */
 
-/* USER CODE END Includes */
+/* USER CODE END  */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
@@ -72,7 +72,11 @@ void Error_Handler(void);
 
 /* USER CODE END EFP */
 
-/* Private defines -----------------------------------------------------------*/
+/* USER CODE BEGIN Private defines */
+typedef enum {MANUAL, AUTO} mode;
+void setDutyCycle(uint8_t D);
+
+
 #ifndef NVIC_PRIORITYGROUP_0
 #define NVIC_PRIORITYGROUP_0         ((uint32_t)0x00000007) /*!< 0 bit  for pre-emption priority,
                                                                  4 bits for subpriority */
@@ -85,7 +89,6 @@ void Error_Handler(void);
 #define NVIC_PRIORITYGROUP_4         ((uint32_t)0x00000003) /*!< 4 bits for pre-emption priority,
                                                                  0 bit  for subpriority */
 #endif
-/* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 

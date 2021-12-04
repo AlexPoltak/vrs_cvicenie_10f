@@ -21,10 +21,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f3xx_it.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usart.h"
-
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,7 +47,9 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+uint8_t dutyCycle=0;
+extern uint8_t newdutyCycle;
+extern mode inputMode;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -266,7 +271,15 @@ void USART2_IRQHandler(void)
 void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
+	if(LL_TIM_IsActiveFlag_CC1(TIM2))
+		{
+		if(newdutyCycle<=99){
+			dutyCycle=dutyCycle+1;
+		}
 
+			setDutyCycle(dutyCycle);
+		}
+	LL_TIM_ClearFlag_CC1(TIM2);
   /* USER CODE END TIM2_IRQn 0 */
   /* USER CODE BEGIN TIM2_IRQn 1 */
 

@@ -64,7 +64,8 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 void proccesDmaData(uint8_t sign);
 char buffer[10];
-
+uint8_t newdutyCycle=0;
+mode inputMode;
 /* USER CODE END 0 */
 
 /**
@@ -186,10 +187,11 @@ void proccesDmaData(uint8_t sign)
 
 			compareA = strcmp(buffer, "auto");
 			if(compareA==0){
-
+				inputMode=AUTO;
 			}
 			compareM = strcmp(buffer, "manual");
 			if(compareM==0){
+				inputMode=MANUAL;
 
 			}
 		    strncpy(PWMsubString,&buffer[0],3);
