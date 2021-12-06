@@ -291,9 +291,14 @@ void TIM2_IRQHandler(void)
 		if(!inputMode){
 			inProcess=0;
 			if(pwmConfiguration==1){
-				dutyCycle=newdutyCycle;
-				if(dutyCycle!=newdutyCycle){
-					setDutyCycle(dutyCycle);
+				if(dutyCycle<newdutyCycle){
+					state=ON;
+					inProcess=1;
+				}
+				if(dutyCycle>newdutyCycle){
+					state=OFF;
+					inProcess=1;
+
 				}
 			}
 
