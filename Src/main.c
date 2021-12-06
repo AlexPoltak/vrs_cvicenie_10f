@@ -214,20 +214,6 @@ void proccesDmaData(uint8_t sign)
 			count=0;
 			i=0;
 		}
-
-
-
-
-		/*if (sign=='$'&&count>0&&count<=35){
-		size_t size = snprintf(NULL, 0,"number of lower: %d, number of upper: %d \n \n",lower,upper);
-		char* info = (char*)malloc(size);
-		snprintf(info, size,"number of lower: %d, number of upper: %d \n \n",lower,upper);
-		USART2_PutBuffer((uint8_t *)info, size);
-		count=0;
-		lower=0;
-		upper=0;
-		}*/
-
 }
 /* USER CODE END 4 */
 
