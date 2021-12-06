@@ -47,7 +47,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-uint8_t dutyCycle=0;
+static uint8_t dutyCycle=0;
 extern uint8_t newdutyCycle;
 extern mode inputMode;
 /* USER CODE END PV */
@@ -273,9 +273,10 @@ void TIM2_IRQHandler(void)
   /* USER CODE BEGIN TIM2_IRQn 0 */
 	if (LL_TIM_IsActiveFlag_UPDATE(TIM2))
 		{
-		if(newdutyCycle<=99){
+		if(newdutyCycle<=PWM_MAX){
 			dutyCycle=dutyCycle+1;
 		}
+
 
 			setDutyCycle(dutyCycle);
 		}

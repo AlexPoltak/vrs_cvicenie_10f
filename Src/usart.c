@@ -89,10 +89,8 @@ void MX_USART2_UART_Init(void)
   LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_6);
   LL_USART_EnableDMAReq_RX(USART2);
 
-#if !POLLING
   LL_DMA_EnableIT_TC(DMA1, LL_DMA_CHANNEL_6);
   LL_DMA_EnableIT_HT(DMA1, LL_DMA_CHANNEL_6);
-#endif
 
 
   /* USART2_TX Init */

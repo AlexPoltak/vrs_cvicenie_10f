@@ -74,6 +74,10 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 typedef enum {MANUAL, AUTO} mode;
+typedef enum {OFF, ON} turn;
+#define PWM_MIN 0
+#define PWM_MAX 99
+
 void setDutyCycle(uint8_t D);
 
 
