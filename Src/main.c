@@ -62,7 +62,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-mode inputMode=AUTO;
+mode inputMode;
 
 void proccesDmaData(uint8_t sign);
 static char buffer[10];
