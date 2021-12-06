@@ -271,7 +271,7 @@ void USART2_IRQHandler(void)
 void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
-	if(LL_TIM_IsActiveFlag_CC1(TIM2))
+	if (LL_TIM_IsActiveFlag_UPDATE(TIM2))
 		{
 		if(newdutyCycle<=99){
 			dutyCycle=dutyCycle+1;
@@ -279,7 +279,7 @@ void TIM2_IRQHandler(void)
 
 			setDutyCycle(dutyCycle);
 		}
-	LL_TIM_ClearFlag_CC1(TIM2);
+	  LL_TIM_ClearFlag_UPDATE(TIM2);
   /* USER CODE END TIM2_IRQn 0 */
   /* USER CODE BEGIN TIM2_IRQn 1 */
 
