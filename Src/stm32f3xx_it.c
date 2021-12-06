@@ -271,27 +271,26 @@ void USART2_IRQHandler(void)
 void TIM2_IRQHandler(void)
 {
 	static turn state = OFF;
+	static uint8_t inProcess = 0;
 
   /* USER CODE BEGIN TIM2_IRQn 0 */
 	if (LL_TIM_IsActiveFlag_UPDATE(TIM2))
 		{
-		if(newdutyCycle<PWM_MAX&&newdutyCycle>=49){
-			state=ON;
-		}
-		if(newdutyCycle>PWM_MIN&&newdutyCycle<49){
-			state=OFF;
-		}
-		if(newdutyCycle==PWM_MAX){
-			state=OFF;
-		}
-		if(newdutyCycle==PWM_MIN){
-			state=ON;
+		if(inputMode){
+			if(dutyCycle<=PWM_MAX&&dutyCycle>=49){
+				state=OFF;
+			}
+			if(dutyCycle>=PWM_MIN&&dutyCycle<49){
+				state=ON;
+			}
+
+			inProcess=1;
 		}
 
-		if(state){
+		if(state&&inProcess==1){
 			dutyCycle=dutyCycle+1;
 		}
-		if(!state){
+		if(!state&&inProcess==1){
 			dutyCycle=dutyCycle-1;
 		}
 
