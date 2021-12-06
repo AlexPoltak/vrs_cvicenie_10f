@@ -62,11 +62,12 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+mode inputMode=AUTO;
+
 void proccesDmaData(uint8_t sign);
 static char buffer[10];
 uint8_t newdutyCycle=0;
-static uint8_t pwmConfiguration=0;
-static mode inputMode;
+uint8_t pwmConfiguration=0;
 
 /* USER CODE END 0 */
 
@@ -208,7 +209,7 @@ void proccesDmaData(uint8_t sign)
 				if ('0' <= buffer[3] && buffer[3] <= '9' && '0' <= buffer[4] && buffer[4]<= '9'){
 					pwmConfiguration=1;
 					newdutyCycle=10*(buffer[3]-'0') + (buffer[4]-'0');
-
+				}
 			}
 			count=0;
 			i=0;

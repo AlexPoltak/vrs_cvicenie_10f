@@ -272,50 +272,48 @@ void USART2_IRQHandler(void)
   */
 void TIM2_IRQHandler(void)
 {
-	static turn state = OFF;
+	static turn state;
 	static uint8_t inProcess = 0;
 
   /* USER CODE BEGIN TIM2_IRQn 0 */
-	if (LL_TIM_IsActiveFlag_UPDATE(TIM2))
-		{
+	if (LL_TIM_IsActiveFlag_UPDATE(TIM2)){
 		if(inputMode){
-			if(dutyCycle==PWM_MAX){
-				state=OFF;
-				inProcess=1;
-			}
-			if(dutyCycle==PWM_MIN){
-				state=ON;
-				inProcess=1;
-			}
-		}
-		if(!inputMode){
+					if(dutyCycle==PWM_MAX){
+						state=OFF;
+						inProcess=1;
+					}
+					if(dutyCycle==PWM_MIN){
+						state=ON;
+						inProcess=1;
+					}
+				}
+
+	}
+	if(!inputMode){
 			inProcess=0;
 			if(pwmConfiguration==1){
-				if(dutyCycle<newdutyCycle){
+				if(dutyCycle<=newdutyCycle){
 					state=ON;
 					inProcess=1;
 				}
 				if(dutyCycle>newdutyCycle){
 					state=OFF;
 					inProcess=1;
-
 				}
 			}
 
-		}
+	}
 
-		if(state&&inProcess==1){
+	if(state&&inProcess==1){
 			dutyCycle=dutyCycle+1;
 			setDutyCycle(dutyCycle);
 
-		}
-		if(!state&&inProcess==1){
+	}
+	if(!state&&inProcess==1){
 			dutyCycle=dutyCycle-1;
 			setDutyCycle(dutyCycle);
 
-		}
-
-		}
+	}
 	  LL_TIM_ClearFlag_UPDATE(TIM2);
   /* USER CODE END TIM2_IRQn 0 */
   /* USER CODE BEGIN TIM2_IRQn 1 */
