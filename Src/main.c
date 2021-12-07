@@ -175,13 +175,6 @@ void proccesDmaData(uint8_t sign)
 		// type your algorithm here:
 	static uint8_t count = 0;
 	static uint8_t i = 0;
-	static uint8_t compareA = 0;
-	static uint8_t compareM = 0;
-	static uint8_t comparePWM = 0;
-
-	char PWMsubString[3];
-
-
 
 		if (sign=='$'&&count == 0){
 			count=1;
@@ -193,18 +186,13 @@ void proccesDmaData(uint8_t sign)
 		}
 		if(count>1&&sign=='$'){
 
-/*			compareA = strcmp(buffer, "auto");*/
 			if(compare(buffer, "auto", 4)){
 				inputMode=AUTO;
 				pwmConfiguration=0;
 			}
-/*			compareM = strcmp(buffer, "manual");*/
 			if(compare(buffer, "manual", 6)){
 				inputMode=MANUAL;
-
 			}
-/*		    strncpy(PWMsubString,&buffer[0],3);*/
-/*			comparePWM = strcmp(PWMsubString, "PWM");*/
 
 			if(compare(buffer, "PWM", 3)){
 				if ('0' <= buffer[3] && buffer[3] <= '9' && '0' <= buffer[4] && buffer[4]<= '9'){

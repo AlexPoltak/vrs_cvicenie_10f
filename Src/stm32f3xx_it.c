@@ -277,40 +277,41 @@ void TIM2_IRQHandler(void)
 
   /* USER CODE BEGIN TIM2_IRQn 0 */
 	if (LL_TIM_IsActiveFlag_UPDATE(TIM2)){
+		 /*IF is configured AUTO mode */
 		if(inputMode){
-			inProcess=1;
-					if(dutyCycle==PWM_MAX){
-						state=OFF;
-					}
-					if(dutyCycle==PWM_MIN){
-						state=ON;
-					}
-				}
-
-	}
-	if(!inputMode){
-			inProcess=0;
-			if(pwmConfiguration==1){
-				if(dutyCycle<=newdutyCycle){
-					state=ON;
-					inProcess=1;
-				}
-				if(dutyCycle>newdutyCycle){
+				inProcess=1;
+				if(dutyCycle==PWM_MAX){
 					state=OFF;
-					inProcess=1;
 				}
-			}
+				if(dutyCycle==PWM_MIN){
+					state=ON;
+				}
+		}
 
-	}
+		/*IF is configured MANUAL mode */
+		if(!inputMode){
+				inProcess=0;
+				if(pwmConfiguration==1){
+						if(dutyCycle<=newdutyCycle){
+							state=ON;
+							inProcess=1;
+						}
+						if(dutyCycle>newdutyCycle){
+							state=OFF;
+							inProcess=1;
+						}
+				}
 
-	if(state&&inProcess==1){
-			dutyCycle=dutyCycle+1;
-			setDutyCycle(dutyCycle);
+		}
 
-	}
-	if(!state&&inProcess==1){
-			dutyCycle=dutyCycle-1;
-			setDutyCycle(dutyCycle);
+		if(state&&inProcess==1){
+				dutyCycle=dutyCycle+1;
+				setDutyCycle(dutyCycle);
+		}
+		if(!state&&inProcess==1){
+				dutyCycle=dutyCycle-1;
+				setDutyCycle(dutyCycle);
+		}
 
 	}
 	  LL_TIM_ClearFlag_UPDATE(TIM2);
