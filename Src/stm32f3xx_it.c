@@ -278,13 +278,12 @@ void TIM2_IRQHandler(void)
   /* USER CODE BEGIN TIM2_IRQn 0 */
 	if (LL_TIM_IsActiveFlag_UPDATE(TIM2)){
 		if(inputMode){
+			inProcess=1;
 					if(dutyCycle==PWM_MAX){
 						state=OFF;
-						inProcess=1;
 					}
 					if(dutyCycle==PWM_MIN){
 						state=ON;
-						inProcess=1;
 					}
 				}
 

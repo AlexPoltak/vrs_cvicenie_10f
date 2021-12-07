@@ -65,7 +65,8 @@ void SystemClock_Config(void);
 mode inputMode;
 
 void proccesDmaData(uint8_t sign);
-static char buffer[10];
+char compare(char *string1, char *string2, int length);
+char buffer[10];
 uint8_t newdutyCycle=0;
 uint8_t pwmConfiguration=0;
 
@@ -192,20 +193,20 @@ void proccesDmaData(uint8_t sign)
 		}
 		if(count>1&&sign=='$'){
 
-			compareA = strcmp(buffer, "auto");
-			if(compareA==0){
+/*			compareA = strcmp(buffer, "auto");*/
+			if(compare(buffer, "auto", 4)){
 				inputMode=AUTO;
 				pwmConfiguration=0;
 			}
-			compareM = strcmp(buffer, "manual");
-			if(compareM==0){
+/*			compareM = strcmp(buffer, "manual");*/
+			if(compare(buffer, "manual", 6)){
 				inputMode=MANUAL;
 
 			}
-		    strncpy(PWMsubString,&buffer[0],3);
-			comparePWM = strcmp(PWMsubString, "PWM");
+/*		    strncpy(PWMsubString,&buffer[0],3);*/
+/*			comparePWM = strcmp(PWMsubString, "PWM");*/
 
-			if(comparePWM==0&&count==5){
+			if(compare(buffer, "PWM", 3)){
 				if ('0' <= buffer[3] && buffer[3] <= '9' && '0' <= buffer[4] && buffer[4]<= '9'){
 					pwmConfiguration=1;
 					newdutyCycle=10*(buffer[3]-'0') + (buffer[4]-'0');
@@ -221,6 +222,18 @@ void proccesDmaData(uint8_t sign)
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
+char compare(char *string1, char *string2, int length)
+{
+	for(int j = 0; j < length; j++)
+	{
+		if(string1[j] != string2[j]){
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
